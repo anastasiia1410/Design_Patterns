@@ -1,9 +1,6 @@
 package com.example.designpatternsapp
 
 class Singleton private constructor() {
-    var name: String = this.javaClass.simpleName
-        private set
-
     companion object {
         @Volatile
         private var instance: Singleton? = null
@@ -22,5 +19,5 @@ class Singleton private constructor() {
 }
 
 fun main() {
-    println(Singleton.getInstance().name)
+    println(Singleton.getInstance().javaClass.simpleName)
 }
