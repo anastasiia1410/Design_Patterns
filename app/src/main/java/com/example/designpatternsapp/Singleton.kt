@@ -1,27 +1,26 @@
 package com.example.designpatternsapp
 
-class Singleton {
-     var name : String
-     private set
+class Singleton private constructor() {
+    var name: String = this.javaClass.simpleName
+        private set
 
-    init {
-        name = this.javaClass.simpleName
-    }
-}
-
-class Main{
     companion object {
+        @Volatile
         private var instance: Singleton? = null
 
         fun getInstance(): Singleton {
             if (instance == null) {
-                instance = Singleton()
+                synchronized(this) {
+                    if (instance == null) {
+                        instance = Singleton()
+                    }
+                }
             }
-            return instance as Singleton
+            return instance!!
         }
     }
 }
 
 fun main() {
-    println(Main.getInstance().name)
+    println(Singleton.getInstance().name)
 }
